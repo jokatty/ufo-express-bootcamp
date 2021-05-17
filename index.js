@@ -14,6 +14,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
 
+let PORT = '';
+if (process.argv[2]) {
+  PORT = process.argv[2];
+}
+else {
+  PORT = 3004;
+}
+
 /*
  * handles '/sighting' route.
 */
@@ -249,6 +257,10 @@ app.put('/sighting/:index/edit', handleSightingIndexEditPutReq);
 //
 app.delete('/sighting/:index', deleteSighting);
 
-app.listen(3004, () => {
-  console.log('server started at port 3004');
+// app.listen(3004, () => {
+//   console.log('server started at port 3004');
+// });
+
+app.listen(PORT, () => {
+  console.log(`server started at port ${PORT}`);
 });
