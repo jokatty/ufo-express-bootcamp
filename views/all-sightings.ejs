@@ -1,0 +1,73 @@
+<%- include('partials/header', {title: 'all sightings'}) %>
+
+    <div class="container mt-5 pt-5">
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <h1>UFO Sightings</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-2 mb-5 pb-5">
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <h4 class="font-weight-light">Aliens are coming</h4>
+        </div>
+    </div>
+
+    <div class="container mt-5 mb-5 pt-5">
+      <div class="row d-flex">
+        <div class="col d-flex justify-content-start">
+          <form class="form-inline my-2 my-lg-0" action="/sortBy" method="GET">
+            <input class="form-control mr-sm-2 custom-search" type="search" placeholder="Search" aria-label="Search" name="search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+
+        <div class="col d-flex justify-content-end">
+          <form action="" method="">
+            <div class="btn-group ">
+              <button type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sort sightings
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="/latest?sort=dsc">Latest post</a>
+                <a class="dropdown-item" href="/duration?sort=dsc">Duration</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">#</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <hr />
+    </div>
+
+
+    <div class="container">
+      <div class="row mt-5">
+        <div class="col-sm-3 d-flex justify-content-center custom-col"><h5>Date & Time</h5></div>
+        <div class="col-sm-2 d-flex justify-content-center custom-col"><h5>Shape</h5></div>
+        <div class="col-sm-2 d-flex justify-content-center custom-col"><h5>City</h5></div>
+        <div class="col-sm-2 d-flex justify-content-center custom-col"><h5>Duration</h5></div>
+        <div class="col-sm-2 d-flex justify-content-center custom-col"><h5>Posted on</h5></div>
+      </div>
+     
+      <div class="row">
+        <% for(let i =0; i <sightingsArr.length; i+=1){ %>
+          <div class="col-sm-3 d-flex justify-content-center"><p><%= sightingsArr[i].date_time %></p></div>
+          <div class="col-sm-2 d-flex justify-content-center"><p><%= sightingsArr[i].shape %></p></div>
+          <div class="col-sm-2 d-flex justify-content-center"><p><%= sightingsArr[i].city %></p></div>
+          <div class="col-sm-2 d-flex justify-content-center"><p><%= sightingsArr[i].duration %> min</p></div>
+          <div class="col-sm-2 d-flex justify-content-center"><p><%= sightingsArr[i].posting_date %></p></div>
+          <div class="col-sm-1 d-flex justify-content-center">
+            <form action="/sighting/<%= i %>?_method=DELETE" method="POST">
+              <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+            </form>
+          </div>
+       <% } %>      
+      </div>
+    </div>
+
+
+    <%- include('partials/footer') -%>

@@ -1,0 +1,104 @@
+<%- include('partials/header', {title: `sighting: ${sightingIndex}`}) -%> 
+
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <h1 class="page-heading">Edit sighting details</h1>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col">
+          <form
+            action="/sighting/<%= sightingIndex %>/edit?_method=PUT"
+            method="POST"
+          >
+            <div class="form-group">
+              <label for="textarea">Observation</label>
+              <textarea
+                class="form-control"
+                id="text"
+                name="text"
+                value="<%= sightingObj.text %>"
+              >
+ <%= sightingObj.text %></textarea
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="date-time">Data & local time</label>
+              <input
+                type="datetime-local"
+                class="form-control"
+                id="date-time"
+                name="date_time"
+                value="<%= sightingObj.date_time %>"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="city">City</label>
+              <input
+                type="text"
+                class="form-control"
+                id="city"
+                name="city"
+                value="<%= sightingObj.city %>"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="state">State</label>
+              <input
+                type="text"
+                class="form-control"
+                id="state"
+                name="state"
+                value="<%= sightingObj.state %>"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="shape">Shape</label>
+              <input
+                type="text"
+                class="form-control"
+                id="shape"
+                name="shape"
+                value="<%= sightingObj.shape %>"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="duration">Duration in minute</label>
+              <input
+                type="text"
+                class="form-control"
+                id="duration"
+                name="duration"
+                value="<%= sightingObj.duration %>"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="summary">Summary</label>
+              <input
+                type="text"
+                class="form-control"
+                id="summary"
+                name="summary"
+                value="<%= sightingObj.summary %>"
+              />
+            </div>
+            <input
+              type="hidden"
+              name="posting_date"
+              value="<%= sightingObj.posting_date %>"
+            />
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+<%- include('partials/footer') -%> 

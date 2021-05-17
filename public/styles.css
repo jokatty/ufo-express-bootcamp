@@ -1,0 +1,89 @@
+.main-container {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 2%;
+}
+/* header section */
+.nav-font {
+  font-family: 'Orbitron', sans-serif;
+  /* font-family: 'Space Mono', monospace; */
+  font-size: 1.5rem;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+h1,
+h2,
+h3 {
+  color: #39ff14;
+  font-family: 'Space Mono', monospace;
+}
+
+h4 {
+  color: silver;
+}
+
+h1 {
+  font-size: 3.5rem;
+}
+.page-heading {
+  font-size: 1.75rem;
+  text-align: center;
+}
+
+/* todo */
+/* h1 font size for bigger screen */
+
+/* body */
+body {
+  background-color: black;
+  color: silver;
+}
+.custom-col {
+  color: #39ff14;
+}
+
+.custom-search {
+  background-color: rgb(187, 184, 184);
+}
+.custom-color {
+  background-color: rgb(187, 184, 184);
+}
+hr {
+  border-top: 1px solid #39ff14;
+}
+
+/* footer */
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  color: rgb(105, 103, 103);
+}
+
+/* shape page */
+
+.shape-li {
+  font-size: 2rem;
+  font-weight: 100;
+  background-color: #8f8a8a;
+}
+.shape-atag {
+  color: white;
+}
+.shape-atag:hover {
+  text-decoration: none;
+  color: #39ff14;
+}
+.card-bg-color {
+  background-color: #8f8a8a;
+  color: white;
+}
+
+/* shapes/shap page */
+.shape-shape-li {
+  font-size: 1.5rem;
+  font-weight: 100;
+  color: #8f8a8a;
+}

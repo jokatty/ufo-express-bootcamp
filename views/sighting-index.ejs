@@ -1,0 +1,41 @@
+<%- include('partials/header', {title: 'single sighting'}) -%> 
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <h1>Sighting</h1>
+        </div>
+      </div>
+    </div>
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-sm-12">
+          <p>Date & time: <%= singleSightingObj.date_time %></p>
+        </div>
+
+        <div class="col-sm-12">
+          <p>City: <%= singleSightingObj.city %></p>
+        </div>
+
+        <div class="col-sm-12">
+          <p>State: <%= singleSightingObj.state %></p>
+        </div>
+
+        <div class="col-sm-12">
+          <p>Shape: <%= singleSightingObj.shape %></p>
+        </div>
+
+        <div class="col-sm-12">
+          <p>Duration: <%= singleSightingObj.duration %></p>
+        </div>
+
+        <div class="col-sm-12">
+          <p>Summary: <%= singleSightingObj.summary %></p>
+        </div>
+
+        <div class="col-sm-12">
+          <p>Text: <%= singleSightingObj.text %></p>
+        </div>
+      </div>
+    </div>
+
+<%- include('partials/footer') -%> 

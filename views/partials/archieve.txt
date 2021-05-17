@@ -1,0 +1,16 @@
+navbar-light
+bg-light
+
+shapes page:
+
+    <div class="container mt-4">
+      <div class="row">
+        <% for(let i =0; i<shapes.length; i+=1){ %>
+          <div class="col-sm-12 d-flex justify-content-center"><a href="/shapes/<%= shapes[i] %>"><p><%= shapes[i] %></a></p></div>
+        <% } %>
+      </div>
+    </div>
+
+shapes-shape page:
+<h5><%= shapeList[i].date_time %></h5>
+                <p><%= shapeList[i].city %></p>

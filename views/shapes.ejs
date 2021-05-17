@@ -1,0 +1,22 @@
+<%- include('partials/header',{title:'all shapes'}) %>
+
+    <div class="container mt-5 mb-5">
+      <div class="row">
+        <div class="col d-flex justify-content-center"><h1>Sighted Shapes</h1></div>
+      </div>
+    </div>
+
+
+    <div class="container mt-5 pt-5">
+      <div class="row d-flex justify-content-center">
+        <div class="card" style="width: 70%;">
+          <ul class="list-group list-group-flush">
+            <% for(let i =0; i<shapes.length; i+=1){ %>
+            <li class="list-group-item  d-flex justify-content-center shape-li"><a href="/shapes/<%= shapes[i] %>" class="shape-atag"><%= shapes[i] %></a></li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+<%- include('partials/footer') -%> 

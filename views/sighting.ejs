@@ -1,0 +1,87 @@
+<%- include('partials/header', {title: 'create sighting'}) %>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col d-flex justify-content-center">
+      <h1 class="page-heading">Please enter your sighting</h1>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col">
+      <form action="/sighting" method="POST">
+        <div class="form-group">
+          <label for="textarea">Observation</label>
+          <textarea
+            class="form-control custom-color"
+            id="text"
+            name="text"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="date-time">Data & local time</label>
+          <input
+            type="datetime-local"
+            class="form-control custom-color"
+            id="date-time"
+            name="date_time"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="city">City</label>
+          <input
+            type="text"
+            class="form-control custom-color"
+            id="city"
+            name="city"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="state">State</label>
+          <input
+            type="text"
+            class="form-control custom-color"
+            id="state"
+            name="state"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="shape">Shape</label>
+          <input
+            type="text"
+            class="form-control custom-color"
+            id="shape"
+            name="shape"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="duration">Duration in minute</label>
+          <input
+            type="number"
+            class="form-control custom-color"
+            id="duration"
+            name="duration"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="summary">Summary</label>
+          <input
+            type="text"
+            class="form-control custom-color"
+            id="summary"
+            name="summary"
+          />
+        </div>
+        <input type="hidden" name="posting_date" value="<%= date %>" />
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') -%>
