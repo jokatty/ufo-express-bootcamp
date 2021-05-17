@@ -51,7 +51,33 @@ body {
 hr {
   border-top: 1px solid #39ff14;
 }
+.pencil {
+  position: relative;
+  font-size: 1.25rem;
+  color: #c6f7bd;
+}
 
+.pencil .hover-text {
+  visibility: hidden;
+  position: absolute;
+  z-index: 1;
+  width: 70px;
+  text-align: center;
+  background-color: black;
+  color: white;
+  font-family: 'Space Mono', monospace;
+  font-style: italic;
+  font-weight: 100;
+  font-size: 0.75rem;
+}
+
+.pencil:hover .hover-text {
+  visibility: visible;
+}
+
+.delete {
+  width: 25px;
+}
 /* footer */
 footer {
   position: fixed;

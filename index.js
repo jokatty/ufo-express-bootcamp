@@ -1,7 +1,7 @@
-import express, { response } from 'express'
-import {add, read, write} from './jsonFileStorage.js'
+import express, { response } from 'express';
 import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser';
+import { add, read, write } from './jsonFileStorage.js';
 // import validate from 'express-validator';
 // const { check, validationResult } = validate;
 
@@ -10,215 +10,209 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 // no need to use any middleware for using favicon. below code works.
 app.use('/favicon.ico', express.static('images/ufo.png'));
-app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
 
 /*
  * handles '/sighting' route.
 */
-function handleSightingGetRoute(req,res){
+function handleSightingGetRoute(req, res) {
   // create date obj
   const date = new Date();
   const postingDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
 
   res.render('sighting', {
-    date:postingDate
+    date: postingDate,
   });
 }
 
-function handleSightingPostRoute(req,res){
+function handleSightingPostRoute(req, res) {
   const newSightingObj = req.body;
-  //experiment
+  // experiment
 
   //
   console.log(newSightingObj);
-  add('data.json', "sightings",newSightingObj, (err)=>{
-    if(err){
+  add('data.json', 'sightings', newSightingObj, (err) => {
+    if (err) {
       return err;
     }
-    res.redirect('/sighting');
-  } );
+    res.redirect('/');
+  });
 }
 
-function diplaySingleSighting(req,res){
+function diplaySingleSighting(req, res) {
   const sightingIndexNum = req.params.index;
-  read('data.json', (err, jsonObj)=>{
-    if(err){
+  read('data.json', (err, jsonObj) => {
+    if (err) {
       return err;
     }
     const singleSightingObj = jsonObj.sightings[sightingIndexNum];
     console.log('signle sighting');
-    console.log( singleSightingObj);
+    console.log(singleSightingObj);
     res.render('sighting-index', {
-      singleSightingObj
+      singleSightingObj,
     });
   });
-  
 }
 
-function DisplayAllSightings(req,res){
-  read('data.json', (err, jsonObj)=>{
-    if(err){
+function DisplayAllSightings(req, res) {
+  read('data.json', (err, jsonObj) => {
+    if (err) {
       return err;
     }
     const sightingsArr = jsonObj.sightings;
     // cookies
     let visits = 0;
-    if(req.cookies.visits){
+    if (req.cookies.visits) {
       visits = Number(req.cookies.visits);
     }
-    visits+=1;
-    
+    visits += 1;
+
     res.cookie('visits', visits);
     console.log(`current cookie value, visits: ${visits}`);
     //
     res.render('all-sightings', {
-      sightingsArr
-    })
+      sightingsArr,
+    });
   });
 }
 
-function editSighting(req, res){
-  const sightingIndex= req.params.index;
-  read('data.json', (err, jsonObj)=>{
-    if(err){
+function editSighting(req, res) {
+  const sightingIndex = req.params.index;
+  read('data.json', (err, jsonObj) => {
+    if (err) {
       return err;
     }
     const sightingObj = jsonObj.sightings[sightingIndex];
     res.render('sighting-index-edit', {
-    sightingObj,
-    sightingIndex:sightingIndex
-  });
+      sightingObj,
+      sightingIndex,
+    });
   });
 }
 
-function handleSightingIndexEditPutReq(req,res){
+function handleSightingIndexEditPutReq(req, res) {
   const sightingIndex = req.params.index;
-  read('data.json', (err, jsonObj)=>{
-    if(err){
+  read('data.json', (err, jsonObj) => {
+    if (err) {
       return err;
     }
     jsonObj.sightings[sightingIndex] = req.body;
 
-    write('data.json', jsonObj, (err)=> {
-      if(err){
+    write('data.json', jsonObj, (err) => {
+      if (err) {
         return err;
       }
     });
     res.redirect('/');
-    
-  })
+  });
 }
 
-function deleteSighting(req,res){
+function deleteSighting(req, res) {
   const sightingIndex = req.params.index;
-  read('data.json', (err,jsonObj)=>{
-    if(err){
+  read('data.json', (err, jsonObj) => {
+    if (err) {
       return err;
     }
-    jsonObj.sightings.splice(sightingIndex,1);
-    
-    write('data.json', jsonObj, (err)=>{
-      if(err){
+    jsonObj.sightings.splice(sightingIndex, 1);
+
+    write('data.json', jsonObj, (err) => {
+      if (err) {
         return err;
       }
     });
-  
+
     res.redirect('/');
-  })
+  });
 }
 
-function renderListOfShapes(req,res){
-  read('data.json', (err, jsonObj)=>{
-    if(err){
+function renderListOfShapes(req, res) {
+  read('data.json', (err, jsonObj) => {
+    if (err) {
       return err;
     }
     const sightingsArr = jsonObj.sightings;
-    const shapesArr =[];
-    const shapeIndex =[];
-    for(let i=0; i<sightingsArr.length; i+=1){
-      let shape = sightingsArr[i].shape;
-      if(!shapesArr.includes(shape)){
-      shapesArr.push(shape);
-      shapeIndex.push(i);
+    const shapesArr = [];
+    const shapeIndex = [];
+    for (let i = 0; i < sightingsArr.length; i += 1) {
+      const { shape } = sightingsArr[i];
+      if (!shapesArr.includes(shape)) {
+        shapesArr.push(shape);
+        shapeIndex.push(i);
       }
     }
 
     res.render('shapes', {
       shapes: shapesArr,
-      index: shapeIndex
+      index: shapeIndex,
     });
   });
 }
 
-function renderShape(req,res){
-  const shape = req.params.shape;
-  read('data.json',(err, jsonObj)=>{
-    if(err){
+function renderShape(req, res) {
+  const { shape } = req.params;
+  read('data.json', (err, jsonObj) => {
+    if (err) {
       return err;
     }
     const sightingsArr = jsonObj.sightings;
     const shapeObjsArr = [];
-    const sightingIndex =[];
-    for(let i =0; i<sightingsArr.length; i+=1){
-      if(sightingsArr[i].shape==shape){
+    const sightingIndex = [];
+    for (let i = 0; i < sightingsArr.length; i += 1) {
+      if (sightingsArr[i].shape == shape) {
         shapeObjsArr.push(sightingsArr[i]);
         sightingIndex.push(i);
       }
     }
     res.render('shapes-shape', {
       shapeList: shapeObjsArr,
-      shape: shape,
-      index: sightingIndex
+      shape,
+      index: sightingIndex,
     });
-  })
+  });
 }
 
-function indexPageSort(req,res){
+function indexPageSort(req, res) {
   const sortParam = req.params.q;
   console.log(sortParam);
-  const query= req.query.search;
+  const query = req.query.search;
   console.log(req.query.search);
 
-  read('data.json', (err, jsonObj)=>{
-    if(err){
+  read('data.json', (err, jsonObj) => {
+    if (err) {
       return err;
     }
     const dataArr = jsonObj.sightings;
 
-    if(sortParam==='latest'){
+    if (sortParam === 'latest') {
       console.log('hey, latest working');
-      const newData = dataArr.sort( (a,b)=>{
-        return new Date(b.posting_date)- new Date(a.posting_date);
-      });
+      const newData = dataArr.sort((a, b) => new Date(b.posting_date) - new Date(a.posting_date));
       res.render('all-sightings', {
-        sightingsArr: newData
-      })
+        sightingsArr: newData,
+      });
     }
-    else if(sortParam==='duration'){
-      const newData = dataArr.sort((a,b)=>{
-        return b.duration - a.duration;
-      });
+    else if (sortParam === 'duration') {
+      const newData = dataArr.sort((a, b) => b.duration - a.duration);
       res.render('all-sightings', {
-        sightingsArr: newData
-      })
+        sightingsArr: newData,
+      });
     }
 
     // else if(query==='fireball'){
-    else if(query){
+    else if (query) {
       const fireBallArr = [];
-      for(let i =0; i<dataArr.length; i+=1){
-        if((dataArr[i].shape).toLowerCase() === query.toLowerCase()){
+      for (let i = 0; i < dataArr.length; i += 1) {
+        if ((dataArr[i].shape).toLowerCase() === query.toLowerCase()) {
           fireBallArr.push(dataArr[i]);
         }
       }
       console.log(fireBallArr);
       res.render('all-sightings', {
-        sightingsArr: fireBallArr
-      })
+        sightingsArr: fireBallArr,
+      });
     }
-  }); 
+  });
 }
 
 // get requests
@@ -240,7 +234,6 @@ app.get('/shapes', renderListOfShapes);
 // Render a list of sightings that has the shape.
 app.get('/shapes/:shape', renderShape);
 
-
 // get requests with url query parameter
 app.get('/:q?', indexPageSort);
 
@@ -250,12 +243,12 @@ app.post('/sighting', handleSightingPostRoute);
 
 // put requests
 // '/sighting/:index/edit' route. Accepts a request to edit a single sighting
-app.put('/sighting/:index/edit', handleSightingIndexEditPutReq)
+app.put('/sighting/:index/edit', handleSightingIndexEditPutReq);
 
 // delete requests
-// 
+//
 app.delete('/sighting/:index', deleteSighting);
 
-app.listen(3004,()=>{
+app.listen(3004, () => {
   console.log('server started at port 3004');
 });

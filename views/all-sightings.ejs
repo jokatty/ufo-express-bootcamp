@@ -44,7 +44,7 @@
     </div>
 
 
-    <div class="container">
+    <div class="container-flex">
       <div class="row mt-5">
         <div class="col-sm-3 d-flex justify-content-center custom-col"><h5>Date & Time</h5></div>
         <div class="col-sm-2 d-flex justify-content-center custom-col"><h5>Shape</h5></div>
@@ -55,14 +55,16 @@
      
       <div class="row">
         <% for(let i =0; i <sightingsArr.length; i+=1){ %>
-          <div class="col-sm-3 d-flex justify-content-center"><p><%= sightingsArr[i].date_time %></p></div>
+          <div class="col-sm-1 d-flex justify-content-start"><a href="/sighting/<%= i %>/edit" class="pencil">✎<span class="hover-text"> Edit</span></a></div>
+          <div class="col-sm-2 d-flex justify-content-start"><p><%= sightingsArr[i].date_time %></p></div>
           <div class="col-sm-2 d-flex justify-content-center"><p><%= sightingsArr[i].shape %></p></div>
           <div class="col-sm-2 d-flex justify-content-center"><p><%= sightingsArr[i].city %></p></div>
           <div class="col-sm-2 d-flex justify-content-center"><p><%= sightingsArr[i].duration %> min</p></div>
           <div class="col-sm-2 d-flex justify-content-center"><p><%= sightingsArr[i].posting_date %></p></div>
           <div class="col-sm-1 d-flex justify-content-center">
             <form action="/sighting/<%= i %>?_method=DELETE" method="POST">
-              <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+              <!-- <img src="/trash.png" class="delete"> -->
+              <button type="submit" class="btn btn-transparent btn-sm"><img src="/trash.png" class="delete"></button>
             </form>
           </div>
        <% } %>      
